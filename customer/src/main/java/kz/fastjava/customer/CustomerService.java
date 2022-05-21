@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public record CustomerService(CustomerRepository customerRepository) {
+    public boolean emailHasTaken(CustomerRegistrationRequest request) {
+        return !customerRepository.findByEmail(request.email());
+    }
+
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -11,7 +15,6 @@ public record CustomerService(CustomerRepository customerRepository) {
                 .email(request.email())
                 .build();
         // TODO: check if email valid
-        // TODO: check if email taken
         customerRepository.save(customer);
     }
 }

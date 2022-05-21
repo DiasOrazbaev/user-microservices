@@ -13,6 +13,9 @@ public record CustomerController(CustomerService customerService) {
 
     @PostMapping
     public void register(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+        if (customerService().emailHasTaken(customerRegistrationRequest)) {
+            return;
+        }
         log.info("New customer registration {}", customerRegistrationRequest);
         customerService.registerCustomer(customerRegistrationRequest);
     }
