@@ -3,7 +3,7 @@ package kz.fastjava.customer;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService() {
+public record CustomerService(CustomerRepository customerRepository) {
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -12,6 +12,6 @@ public record CustomerService() {
                 .build();
         // TODO: check if email valid
         // TODO: check if email taken
-        // TODO: store customer in db
+        customerRepository.save(customer);
     }
 }
