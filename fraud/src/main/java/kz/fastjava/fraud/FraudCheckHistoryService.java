@@ -9,7 +9,7 @@ public record FraudCheckHistoryService(FraudCheckHistoryRepository repository) {
 
     public boolean isFraudulentCustomer(Integer customerID) {
         repository.save(FraudCheckHistory.builder()
-                .id(customerID)
+                .customerID(customerID)
                 .isFraudster(false)
                 .createdAt(LocalDateTime.now())
                 .build());
